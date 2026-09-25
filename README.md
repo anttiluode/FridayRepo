@@ -33,7 +33,7 @@ response ∝ s * r
 
 so the correct continuation is an XOR/XNOR-like function of the two histories.
 
-The waveform manipulation is intentionally prevented from cheating through easy scalar cues: the two sender states have the same event time, equal integrated area to numerical precision, equal L2 energy, and equal value at the carrier peak sample. What changes is temporal shape.
+The waveform manipulation is intentionally prevented from cheating through easy scalar cues: the two sender states have the same event time, equal integrated area to numerical precision, equal L2 energy, the same peak location, and the same peak height. What changes is temporal shape away from the event peak.
 
 ## Receipt
 
@@ -41,12 +41,12 @@ The waveform manipulation is intentionally prevented from cheating through easy 
 
 | condition | mean accuracy |
 |---|---:|
-| full waveform × susceptibility | **97.81%** |
+| full waveform × susceptibility | **97.84%** |
 | timestamp only | 50.00% |
 | waveform only, even with oracle sender-state decode | 50.00% |
 | waveform clamped to the mean | 50.00% |
 | waveform shuffled between trials | 49.86% |
-| receiver susceptibility frozen | 49.95% |
+| receiver susceptibility frozen | 49.98% |
 | additive model given both hidden state labels | 50.00% |
 | interaction oracle | 100.00% |
 
@@ -70,9 +70,9 @@ Across 16 seeds:
 
 | learned model | result |
 |---|---:|
-| state-conditioned interaction | **96.16% ± 0.72%** |
-| additive same-observation attacker | **50.20% ± 1.56%** |
-| learned-kernel alignment with planted temporal mode | **0.879 ± 0.013** cosine |
+| state-conditioned interaction | **96.05% ± 0.62%** |
+| additive same-observation attacker | **50.23% ± 1.60%** |
+| learned-kernel alignment with planted temporal mode | **0.881 ± 0.012** cosine |
 
 So the receiver does not need to be handed the exact waveform feature: the training data can recover the useful temporal susceptibility. What remains architecturally supplied is the fact that receiver state is allowed to modulate how the waveform is read.
 
