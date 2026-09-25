@@ -39,13 +39,17 @@ def _basis(n: int = 192):
     q = np.exp(-0.5 * ((t - 0.043) / 0.009) ** 2)
     q -= 0.75 * np.exp(-0.5 * ((t - 0.022) / 0.007) ** 2)
 
-    # Remove trivial scalar cues. q is orthogonal to the common carrier (equal energy
-    # for +/- states), to the DC vector (equal area), and has zero value at the
-    # carrier peak (equal peak sample). What remains is temporal shape.
+    # Remove trivial scalar cues. q is orthogonal to the common carrier (equal energy)
+    # and to the DC vector (equal area). It is also forced to zero around the carrier
+    # peak so the two states have the same peak location and peak height. What remains
+    # is temporal shape away from the event peak.
     peak = int(np.argmax(base))
-    peak_axis = np.zeros_like(base)
-    peak_axis[peak] = 1.0
-    constraints = np.column_stack([base, np.ones_like(base), peak_axis])
+    peak_axes = []
+    for idx in range(peak - 4, peak + 5):
+        axis = np.zeros_like(base)
+        axis[idx] = 1.0
+        peak_axes.append(axis)
+    constraints = np.column_stack([base, np.ones_like(base), *peak_axes])
     coeff, *_ = np.linalg.lstsq(constraints, q, rcond=None)
     q = q - constraints @ coeff
     q /= np.linalg.norm(q)
@@ -312,6 +316,8 @@ def build_receipt(seeds=range(16), n_per_condition: int = 200, noise: float = 0.
         "area_difference_abs": float(abs(w_neg.sum() - w_pos.sum())),
         "energy_difference_abs": float(abs(np.dot(w_neg, w_neg) - np.dot(w_pos, w_pos))),
         "carrier_peak_sample_difference_abs": float(abs(w_neg[peak] - w_pos[peak])),
+        "peak_height_difference_abs": float(abs(w_neg.max() - w_pos.max())),
+        "peak_index_difference_abs": int(abs(int(np.argmax(w_neg)) - int(np.argmax(w_pos)))),
     }
 
     return {
