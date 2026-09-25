@@ -1,0 +1,44 @@
+{
+  "question": "Can hidden history change the correct future through waveform x susceptibility when event times are identical?",
+  "scope": {
+    "biological_claim": false,
+    "status": "known-answer engineering spike",
+    "interpretation": "tests computational sufficiency and falsifiers, not whether real neurons use this exact code"
+  },
+  "waveform_controls": {
+    "same_event_time": true,
+    "area_difference_abs": 2.6645352591003757e-15,
+    "energy_difference_abs": 0.0,
+    "carrier_peak_sample_difference_abs": 0.0
+  },
+  "known_answer": {
+    "claim": "hidden history affects continuation through waveform x susceptibility with identical event times",
+    "construction": "known-answer toy; not evidence that real neurons implement this code",
+    "n_seeds": 16,
+    "n_per_condition": 200,
+    "noise_sd_per_sample": 0.12,
+    "summary": {
+      "full": {"mean_accuracy": 0.978125, "sd_accuracy": 0.0041079191812887494, "min_accuracy": 0.9725, "max_accuracy": 0.98875},
+      "timestamp_only": {"mean_accuracy": 0.5, "sd_accuracy": 0.0, "min_accuracy": 0.5, "max_accuracy": 0.5},
+      "waveform_only": {"mean_accuracy": 0.5, "sd_accuracy": 0.0, "min_accuracy": 0.5, "max_accuracy": 0.5},
+      "clamped_waveform": {"mean_accuracy": 0.5, "sd_accuracy": 0.0, "min_accuracy": 0.5, "max_accuracy": 0.5},
+      "shuffled_waveform": {"mean_accuracy": 0.49859375, "sd_accuracy": 0.016271620232785663, "min_accuracy": 0.47625, "max_accuracy": 0.5275},
+      "fixed_receiver": {"mean_accuracy": 0.49953125000000004, "sd_accuracy": 0.005080087761709111, "min_accuracy": 0.49125, "max_accuracy": 0.51},
+      "additive_state_model": {"mean_accuracy": 0.5, "sd_accuracy": 0.0, "min_accuracy": 0.5, "max_accuracy": 0.5},
+      "interaction_oracle": {"mean_accuracy": 1.0, "sd_accuracy": 0.0, "min_accuracy": 1.0, "max_accuracy": 1.0},
+      "sender_state_decodable_from_waveform": {"mean_accuracy": 0.978125, "sd_accuracy": 0.0041079191812887494, "min_accuracy": 0.9725, "max_accuracy": 0.98875},
+      "sender_transplant": {"mean_flip_fraction": 1.0},
+      "receiver_transplant": {"mean_flip_fraction": 1.0}
+    }
+  },
+  "learned_susceptibility": {
+    "description": "receiver-state x waveform interaction kernel learned from training examples; additive model sees the same observations",
+    "n_seeds": 16,
+    "train_trials_per_seed": 800,
+    "test_trials_per_seed": 1600,
+    "noise_sd_per_sample": 0.12,
+    "interaction_accuracy": {"mean": 0.961640625, "sd": 0.007230847547141337, "min": 0.945625, "max": 0.97125},
+    "additive_accuracy": {"mean": 0.5020312499999999, "sd": 0.01563832764929379, "min": 0.47375, "max": 0.52875},
+    "kernel_alignment": {"mean": 0.8789953958545118, "sd": 0.01343888884769277, "min": 0.8568108527460019, "max": 0.9069226372577927}
+  }
+}
