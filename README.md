@@ -109,17 +109,44 @@ The sharper sentence is:
 
 That gives a minimal physical/computational form to “pings hit moving targets”: both sides of the coupling can carry history.
 
+## Learned-history follow-up
+
+`history_experiment.py` now removes the supplied `s` and `r` values from training. Each side instead receives a real 24-step, two-channel temporal history. The two history families contain the same event counts on the same channels; only their **order** differs. Events are jittered by ±2 samples and Gaussian noise (`σ=0.20`) is added. The present event still occurs at the same `t=0` on every trial.
+
+A learned temporal encoder compresses each history to a resident state. Sender state modulates a learned small waveform deviation around a common AP-like carrier. Receiver state modulates a separately learned temporal susceptibility. The only supervision is the final continuation target. Hidden history-family labels exist in the dataset generator solely for post-hoc diagnostics and are never passed to `train_history_coupler`.
+
+Across 16 seeds (`512` training and `1024` held-out trials per seed):
+
+| condition / diagnostic | result |
+|---|---:|
+| learned history → waveform × susceptibility | **95.00% ± 0.96%** |
+| additive linear model on both raw histories | 50.13% ± 1.37% |
+| sender history shuffled at test | 50.03% ± 1.52% |
+| receiver history shuffled at test | 50.32% ± 1.17% |
+| emitted waveform clamped to common carrier | 50.00% |
+| receiver resident state clamped | 49.99% |
+| sender history family decodable from learned resident state | **97.55% ± 0.72%** |
+| receiver history family decodable from learned resident state | **97.36% ± 0.63%** |
+| sender-history transplant flips composed answer | **100%** |
+| receiver-history transplant flips composed answer | **100%** |
+
+The learned emitted shapes keep the same integrated area, carrier peak location, and peak height across the two sender histories. The state-dependent difference lives away from the common event peak. The full receipt is `results/history_receipt.json`.
+
+This is a real step beyond the first construction: continuation error alone can teach both temporal encoders and the two sides of the temporal interface. But the important limitation moved rather than disappeared. We still **architecturally supply the factorization**
+
+```text
+sender history -> emitted shape
+receiver history -> susceptibility
+interaction -> continuation
+```
+
+so this does not show that an unconstrained dynamical system would discover waveform-mediated coupling, and it does not establish a uniquely resonant mechanism. The near-perfect alignment of the learned sender shape and receiver kernel is also expected from this bilinear objective: only their inner product matters, so optimization rewards alignment. It is a receipt for learning the factorized mechanism, not evidence for a biological resonance code.
+
 ## Next falsifier
 
-Do **not** make the toy larger first. Remove the supplied `s` and `r` labels.
+Remove the last thing we are still handing the system: the explicit **sender-waveform / receiver-filter factorization**. Give a small generic dynamical network the same two histories and identical present event, train only continuation error, and then *measure* whether a sender-like emitted temporal mode and receiver-like susceptibility emerge. Compare it against an equally sized ordinary recurrent/nonlinear baseline.
 
-Give sender and receiver actual preceding temporal histories that autonomously create resident states, make the present event identical, and train only from continuation error. Then ask whether the system learns:
-
-1. a waveform generator whose shape depends on sender history;
-2. a receiver susceptibility whose response depends on receiver history;
-3. the joint continuation without an explicit `state × waveform` feature being provided by us.
-
-If that fails, this repo remains what it currently is: a useful known-answer demonstration of state-dependent coupling, not a learned resonant brain.
+That is the point where “waveform × susceptibility” would have to become a discovered internal organization rather than the coordinates we chose for the learner.
 
 ## Run
 
@@ -127,6 +154,7 @@ If that fails, this repo remains what it currently is: a useful known-answer dem
 python -m pip install -r requirements.txt
 python -m pytest -q
 python experiment.py
+python history_experiment.py
 ```
 
-The experiment uses NumPy only; `pytest` is present for the TDD checks.
+Both experiments use NumPy only; `pytest` is present for the TDD checks.

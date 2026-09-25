@@ -1,0 +1,130 @@
+{
+  "question": "Can waveform x susceptibility emerge from temporal histories when only continuation error is supervised?",
+  "scope": {
+    "biological_claim": false,
+    "explicit_state_labels_used_for_training": false,
+    "status": "learned-history toy",
+    "architectural_prior": "sender history modulates emitted shape; receiver history modulates temporal susceptibility; their inner product drives continuation",
+    "interpretation": "tests whether the factorized mechanism can learn useful latent history states and temporal coupling, not whether biology uses it or whether the factorization is uniquely necessary"
+  },
+  "data": {
+    "history_len": 24,
+    "history_channels": 2,
+    "history_noise_sd": 0.2,
+    "event_jitter_samples": 2,
+    "present_event_time": 0.0,
+    "train_trials_per_seed": 512,
+    "test_trials_per_seed": 1024
+  },
+  "n_seeds": 16,
+  "summary": {
+    "full_accuracy": {
+      "mean": 0.949951171875,
+      "sd": 0.009644430257588552,
+      "min": 0.92578125,
+      "max": 0.9638671875
+    },
+    "timestamp_only_accuracy": {
+      "mean": 0.5,
+      "sd": 0.0,
+      "min": 0.5,
+      "max": 0.5
+    },
+    "additive_raw_history_accuracy": {
+      "mean": 0.50128173828125,
+      "sd": 0.013716995625280635,
+      "min": 0.4794921875,
+      "max": 0.529296875
+    },
+    "sender_shuffle_accuracy": {
+      "mean": 0.50030517578125,
+      "sd": 0.015190570159919847,
+      "min": 0.474609375,
+      "max": 0.546875
+    },
+    "receiver_shuffle_accuracy": {
+      "mean": 0.503173828125,
+      "sd": 0.011716037012349337,
+      "min": 0.4853515625,
+      "max": 0.5283203125
+    },
+    "clamped_waveform_accuracy": {
+      "mean": 0.5,
+      "sd": 0.0,
+      "min": 0.5,
+      "max": 0.5
+    },
+    "fixed_receiver_accuracy": {
+      "mean": 0.4998779296875,
+      "sd": 0.00048828125,
+      "min": 0.498046875,
+      "max": 0.5
+    },
+    "sender_state_decode_accuracy": {
+      "mean": 0.9754638671875,
+      "sd": 0.007236892602674384,
+      "min": 0.9619140625,
+      "max": 0.9892578125
+    },
+    "receiver_state_decode_accuracy": {
+      "mean": 0.97357177734375,
+      "sd": 0.006313446981071134,
+      "min": 0.9619140625,
+      "max": 0.9853515625
+    },
+    "sender_waveform_distance": {
+      "mean": 0.44528143822863664,
+      "sd": 0.005191366739276697,
+      "min": 0.43365948210676103,
+      "max": 0.452643030644759
+    },
+    "receiver_susceptibility_distance": {
+      "mean": 1.8520540829024186,
+      "sd": 0.021790096873678163,
+      "min": 1.813074643593606,
+      "max": 1.8932102585805204
+    },
+    "sender_transplant_flip_fraction": {
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0
+    },
+    "receiver_transplant_flip_fraction": {
+      "mean": 1.0,
+      "sd": 0.0,
+      "min": 1.0,
+      "max": 1.0
+    },
+    "learned_shape_kernel_abs_cosine": {
+      "mean": 0.9999912445313365,
+      "sd": 1.5149291178429075e-05,
+      "min": 0.9999447309859607,
+      "max": 0.9999999882535833
+    },
+    "waveform_area_difference_abs": {
+      "mean": 1.4432899320127035e-15,
+      "sd": 9.524652439874978e-16,
+      "min": 0.0,
+      "max": 3.552713678800501e-15
+    },
+    "waveform_peak_height_difference_abs": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "waveform_peak_index_difference_abs": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "carrier_peak_sample_difference_abs": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    }
+  }
+}
