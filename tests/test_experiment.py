@@ -50,6 +50,8 @@ def test_waveform_state_is_shape_not_area_energy_or_peak_height():
     assert abs(w_neg.sum() - w_pos.sum()) < 1e-10
     assert abs(np.dot(w_neg, w_neg) - np.dot(w_pos, w_pos)) < 1e-10
     assert abs(w_neg[peak] - w_pos[peak]) < 1e-10
+    assert np.argmax(w_neg) == np.argmax(w_pos) == peak
+    assert abs(w_neg.max() - w_pos.max()) < 1e-10
 
 
 def test_state_conditioned_susceptibility_can_be_learned_from_examples():
