@@ -1,0 +1,63 @@
+{
+  "question": "When a late query is unknowable at send time, what history survives a narrow noisy channel, and how does a cheap shortcut change that pressure?",
+  "scope": {
+    "biological_claim": false,
+    "query_available_to_sender": false,
+    "sender_receiver_are_separate": true,
+    "generic_receiver_is_nonlinear": true,
+    "rank_bound_applies_exactly_only_to_bilinear_reference": true,
+    "interpretation": "generic scalar messages may beat matrix-rank dimensionality by nonlinear coding; noise and bounded tanh messages make that loophole measurable rather than forbidden"
+  },
+  "data": {
+    "sender_classes": 4,
+    "receiver_classes": 4,
+    "late_queries": 3,
+    "history_len": 18,
+    "history_noise_sd": 0.03,
+    "jitter_samples": 1,
+    "channel_noise_sd": 0.12,
+    "shortcut_noise_sd": 0.08,
+    "train_trials_per_seed": 1920,
+    "test_trials_per_seed": 2880
+  },
+  "rank_reference": {
+    "query_ranks": [1, 2, 3],
+    "joint_rank": 3,
+    "residual_rank_with_exact_shortcut": 2,
+    "without_shortcut": {
+      "0": {"nrmse": 0.9999999999985678},
+      "1": {"nrmse": 0.5114083119560264},
+      "2": {"nrmse": 0.20672455764838468},
+      "3": {"nrmse": 4.1692628027652783e-16},
+      "4": {"nrmse": 4.1578468456378074e-16}
+    },
+    "with_exact_shortcut": {
+      "0": {"nrmse": 0.9999999999971995},
+      "1": {"nrmse": 0.4042260417260895},
+      "2": {"nrmse": 1.920469301993156e-16},
+      "3": {"nrmse": 1.9996219660972097e-16},
+      "4": {"nrmse": 2.016376814196662e-16}
+    }
+  },
+  "generic": {
+    "without_shortcut": {
+      "0": {"mean_nrmse": 1.2298342662495731, "sd_nrmse": 0.02477739941194289, "mean_sender_shuffle_nrmse": 1.2298342662495731, "mean_used_dimensions": 0.0, "mean_effective_rank": 0.0, "mean_min_class_separation_over_noise": 0.0, "mean_principal_sender_basis_abs_correlation": 0.0, "success_fraction_nrmse_lt_0_25": 0.0},
+      "1": {"mean_nrmse": 1.0424767272134363, "sd_nrmse": 0.48832210264352904, "mean_sender_shuffle_nrmse": 1.3079757012491091, "mean_used_dimensions": 1.0, "mean_effective_rank": 1.0, "mean_min_class_separation_over_noise": 1.294487124235162, "mean_principal_sender_basis_abs_correlation": 0.9363770943404787, "success_fraction_nrmse_lt_0_25": 0.0},
+      "2": {"mean_nrmse": 0.7964063343238504, "sd_nrmse": 0.6191455208518, "mean_sender_shuffle_nrmse": 1.351733743158693, "mean_used_dimensions": 1.75, "mean_effective_rank": 1.2838937292568477, "mean_min_class_separation_over_noise": 4.56193213031432, "mean_principal_sender_basis_abs_correlation": 0.9152351737581107, "success_fraction_nrmse_lt_0_25": 0.25},
+      "3": {"mean_nrmse": 0.8049305136814817, "sd_nrmse": 0.5053864342262235, "mean_sender_shuffle_nrmse": 1.3467887065345185, "mean_used_dimensions": 2.0, "mean_effective_rank": 1.28575685009561, "mean_min_class_separation_over_noise": 2.716536988206734, "mean_principal_sender_basis_abs_correlation": 0.9052368831018829, "success_fraction_nrmse_lt_0_25": 0.0},
+      "4": {"mean_nrmse": 1.0569633206203066, "sd_nrmse": 0.5498336051381476, "mean_sender_shuffle_nrmse": 1.367903494510663, "mean_used_dimensions": 2.0, "mean_effective_rank": 1.5832738803856883, "mean_min_class_separation_over_noise": 3.0955692318414303, "mean_principal_sender_basis_abs_correlation": 0.8736969281560871, "success_fraction_nrmse_lt_0_25": 0.25}
+    },
+    "with_shortcut": {
+      "0": {"mean_nrmse": 0.6055269823755309, "sd_nrmse": 0.014688835973886087, "mean_sender_shuffle_nrmse": 0.6055269823755309, "mean_used_dimensions": 0.0, "mean_effective_rank": 0.0, "mean_min_class_separation_over_noise": 0.0, "mean_principal_sender_basis_abs_correlation": 0.0, "success_fraction_nrmse_lt_0_25": 0.0},
+      "1": {"mean_nrmse": 0.13550349740465403, "sd_nrmse": 0.004759656690578227, "mean_sender_shuffle_nrmse": 0.7143585505222789, "mean_used_dimensions": 1.0, "mean_effective_rank": 1.0, "mean_min_class_separation_over_noise": 0.12965708778775314, "mean_principal_sender_basis_abs_correlation": 0.9998487589847478, "success_fraction_nrmse_lt_0_25": 1.0},
+      "2": {"mean_nrmse": 0.13382541704798492, "sd_nrmse": 0.004095492877741359, "mean_sender_shuffle_nrmse": 0.7160115140907222, "mean_used_dimensions": 1.0, "mean_effective_rank": 1.0000017544453352, "mean_min_class_separation_over_noise": 0.11556044038540053, "mean_principal_sender_basis_abs_correlation": 0.9998325400071236, "success_fraction_nrmse_lt_0_25": 1.0},
+      "3": {"mean_nrmse": 0.13206067727289636, "sd_nrmse": 0.0052844781416750775, "mean_sender_shuffle_nrmse": 0.7153430646646884, "mean_used_dimensions": 1.0, "mean_effective_rank": 1.0001052588333588, "mean_min_class_separation_over_noise": 0.1351078866220247, "mean_principal_sender_basis_abs_correlation": 0.9998688650874448, "success_fraction_nrmse_lt_0_25": 1.0},
+      "4": {"mean_nrmse": 0.13262739322265582, "sd_nrmse": 0.0045914671350889375, "mean_sender_shuffle_nrmse": 0.716421342491288, "mean_used_dimensions": 1.0, "mean_effective_rank": 1.000066426276825, "mean_min_class_separation_over_noise": 0.16940700902397893, "mean_principal_sender_basis_abs_correlation": 0.9999085910417522, "success_fraction_nrmse_lt_0_25": 1.0}
+    }
+  },
+  "controls": {
+    "direct_access_with_shortcut": {"mean_nrmse": 0.14435308125842325, "sd_nrmse": 0.011337735144978989},
+    "direct_access_without_shortcut": {"mean_nrmse": 0.5746192281515207, "sd_nrmse": 0.4590488060728201},
+    "sender_erased_with_shortcut": {"mean_nrmse": 0.6105452565018284, "sd_nrmse": 0.01212005471347131}
+  }
+}
