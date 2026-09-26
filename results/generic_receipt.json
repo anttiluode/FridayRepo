@@ -1,0 +1,67 @@
+{
+  "question": "Does a generic recurrent dynamical system invent an equivalent factorization when only continuation loss is supplied?",
+  "scope": {
+    "biological_claim": false,
+    "factorized_sender_receiver_modules": false,
+    "explicit_interaction_feature": false,
+    "explicit_state_labels_used_for_training": false,
+    "model": "single vanilla tanh RNN over orthogonally mixed history channels plus one identical query pulse",
+    "interpretation": "post-hoc probes discriminate precomputation from query-revealed state dependence; they do not prove a unique internal mechanism"
+  },
+  "data": {
+    "history_len": 24,
+    "mixed_history_channels": 4,
+    "query_channels": 1,
+    "history_noise_sd": 0.18,
+    "event_jitter_samples": 2,
+    "train_trials_per_seed": 2048,
+    "test_trials_per_seed": 1024
+  },
+  "n_seeds": 8,
+  "optimization": {
+    "success_definition": "training accuracy >= 0.95 and held-out accuracy >= 0.90",
+    "success_count": 4,
+    "success_fraction": 0.5,
+    "note": "failed runs are retained rather than averaged away; mechanism summaries are shown separately for solved runs"
+  },
+  "summary": {
+    "all_runs": {
+      "training_accuracy": {"mean": 0.8624267578125, "sd": 0.14569115357617085, "min": 0.640625, "max": 0.99755859375},
+      "full_accuracy": {"mean": 0.7667236328125, "sd": 0.22220694351275988, "min": 0.51953125, "max": 0.984375},
+      "linear_raw_history_accuracy": {"mean": 0.4996337890625, "sd": 0.01193688237397848, "min": 0.484375, "max": 0.51953125},
+      "sender_shuffle_accuracy": {"mean": 0.4998779296875, "sd": 0.014805128290118671, "min": 0.48046875, "max": 0.521484375},
+      "receiver_shuffle_accuracy": {"mean": 0.4951171875, "sd": 0.011460129898388868, "min": 0.486328125, "max": 0.5205078125},
+      "no_query_accuracy": {"mean": 0.649658203125, "sd": 0.1817559082965901, "min": 0.501953125, "max": 0.9443359375},
+      "prequery_model_accuracy": {"mean": 0.474609375, "sd": 0.2487335826223772, "min": 0.0732421875, "max": 0.8486328125},
+      "prequery_target_probe_accuracy": {"mean": 0.759765625, "sd": 0.2285317216171439, "min": 0.5068359375, "max": 0.986328125},
+      "postquery_target_probe_accuracy": {"mean": 0.765380859375, "sd": 0.22379008549820104, "min": 0.5126953125, "max": 0.984375},
+      "query_response_target_probe_accuracy": {"mean": 0.73681640625, "sd": 0.22074571432468995, "min": 0.4912109375, "max": 0.9697265625},
+      "sender_prequery_probe_accuracy": {"mean": 0.6737060546875, "sd": 0.10814417964258387, "min": 0.515625, "max": 0.806640625},
+      "receiver_prequery_probe_accuracy": {"mean": 0.68603515625, "sd": 0.10888687515003181, "min": 0.5478515625, "max": 0.8017578125},
+      "lowdim_additive_probe_accuracy": {"mean": 0.5294189453125, "sd": 0.02958580324031058, "min": 0.490234375, "max": 0.5654296875},
+      "lowdim_interaction_probe_accuracy": {"mean": 0.7362060546875, "sd": 0.23425838657493187, "min": 0.498046875, "max": 0.9775390625},
+      "query_effect_fraction": {"mean": 0.9695915345179451, "sd": 0.5786433960601041, "min": 0.21156789319996236, "max": 1.8128288625846434}
+    },
+    "successful_runs": {
+      "training_accuracy": {"mean": 0.9935302734375, "sd": 0.005837292916806412, "min": 0.98486328125, "max": 0.99755859375},
+      "full_accuracy": {"mean": 0.973388671875, "sd": 0.015713757510204814, "min": 0.9501953125, "max": 0.984375},
+      "linear_raw_history_accuracy": {"mean": 0.494873046875, "sd": 0.011537635806280783, "min": 0.484375, "max": 0.509765625},
+      "sender_shuffle_accuracy": {"mean": 0.505615234375, "sd": 0.01108803472021556, "min": 0.4970703125, "max": 0.521484375},
+      "receiver_shuffle_accuracy": {"mean": 0.49658203125, "sd": 0.016036650959314586, "min": 0.486328125, "max": 0.5205078125},
+      "no_query_accuracy": {"mean": 0.77197265625, "sd": 0.19070993001095973, "min": 0.5634765625, "max": 0.9443359375},
+      "prequery_model_accuracy": {"mean": 0.44189453125, "sd": 0.37601122675699217, "min": 0.0732421875, "max": 0.8486328125},
+      "prequery_target_probe_accuracy": {"mean": 0.97265625, "sd": 0.01618463918575007, "min": 0.94921875, "max": 0.986328125},
+      "postquery_target_probe_accuracy": {"mean": 0.97314453125, "sd": 0.014451805260692131, "min": 0.9521484375, "max": 0.984375},
+      "query_response_target_probe_accuracy": {"mean": 0.94189453125, "sd": 0.025868155687609147, "min": 0.91796875, "max": 0.9697265625},
+      "sender_prequery_probe_accuracy": {"mean": 0.768310546875, "sd": 0.02749880470221307, "min": 0.7412109375, "max": 0.806640625},
+      "receiver_prequery_probe_accuracy": {"mean": 0.783203125, "sd": 0.014330312957718189, "min": 0.7705078125, "max": 0.8017578125},
+      "lowdim_additive_probe_accuracy": {"mean": 0.552490234375, "sd": 0.0164452467771351, "min": 0.5302734375, "max": 0.5654296875},
+      "lowdim_interaction_probe_accuracy": {"mean": 0.953857421875, "sd": 0.03376680497357386, "min": 0.904296875, "max": 0.9775390625},
+      "query_effect_fraction": {"mean": 0.7788328774509815, "sd": 0.4622753331269579, "min": 0.21156789319996236, "max": 1.2608246073956113}
+    }
+  },
+  "probe_interpretation_counts": {
+    "all_runs": {"distributed_or_ambiguous": 4, "interaction_precomputed_before_query": 4},
+    "successful_runs": {"interaction_precomputed_before_query": 4}
+  }
+}
